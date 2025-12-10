@@ -26,22 +26,26 @@ An engaging, mobile-friendly car driving game built with Next.js. No login requi
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone <repository-url>
 cd self_driving_car
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Run the development server:
+
 ```bash
 npm run dev
 ```
 
 4. Open your browser and navigate to:
+
 ```
 http://localhost:3000
 ```
@@ -49,13 +53,16 @@ http://localhost:3000
 ## 🎯 How to Play
 
 ### Desktop Controls
+
 - **Arrow Left** or **A**: Move car left
 - **Arrow Right** or **D**: Move car right
 
 ### Mobile Controls
+
 - **Touch and Drag**: Swipe left/right to steer the car
 
 ### Gameplay
+
 - 🚗 Avoid cars and traffic cones
 - 💰 Collect coins for bonus points (+50 points per coin)
 - 🏁 Pass obstacles to increase your score (+10 points per obstacle)
@@ -66,18 +73,21 @@ http://localhost:3000
 ### On Mobile (iOS/Android)
 
 #### iOS (Safari)
+
 1. Open the game in Safari
 2. Tap the Share button
 3. Select "Add to Home Screen"
 4. Tap "Add"
 
 #### Android (Chrome)
+
 1. Open the game in Chrome
 2. Tap the menu (three dots)
 3. Select "Add to Home Screen" or "Install App"
 4. Tap "Add"
 
 ### On Desktop (Chrome/Edge)
+
 1. Open the game in Chrome or Edge
 2. Look for the install icon in the address bar
 3. Click "Install"
@@ -114,16 +124,19 @@ self_driving_car/
 ## 🎨 Game Mechanics
 
 ### Scoring System
+
 - **Passing an obstacle**: +10 points
 - **Collecting a coin**: +50 points
 
 ### Difficulty Progression
+
 - Base speed increases every 20 obstacles
 - Maximum speed cap to ensure playability
 - Obstacle spawn rate: Every 1.5 seconds
 - Coin spawn rate: Every 2 seconds
 
 ### Collision Detection
+
 - Rectangle-based collision for obstacles
 - Circle-based collision for coins
 - Precise hit boxes for fair gameplay
@@ -171,10 +184,6 @@ This project is open source and available under the MIT License.
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!
-
-## 👤 Author
-
-Built with ❤️ using Claude Code
 
 ---
 

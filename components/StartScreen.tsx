@@ -1,11 +1,46 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 interface StartScreenProps {
   onStart: () => void;
   highScore: number;
 }
 
 const StartScreen = ({ onStart, highScore }: StartScreenProps) => {
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [showInstallButton, setShowInstallButton] = useState(false);
+
+  useEffect(() => {
+    const handler = (e: Event) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setShowInstallButton(true);
+    };
+
+    window.addEventListener("beforeinstallprompt", handler);
+
+    // Check if already installed
+    if (window.matchMedia("(display-mode: standalone)").matches) {
+      setShowInstallButton(false);
+    }
+
+    return () => window.removeEventListener("beforeinstallprompt", handler);
+  }, []);
+
+  const handleInstallClick = async () => {
+    if (!deferredPrompt) return;
+
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+
+    if (outcome === "accepted") {
+      setShowInstallButton(false);
+    }
+
+    setDeferredPrompt(null);
+  };
+
   return (
     <div className="w-full h-full flex flex-col items-center bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative overflow-y-auto overflow-x-hidden">
       {/* Animated background elements */}
@@ -51,11 +86,28 @@ const StartScreen = ({ onStart, highScore }: StartScreenProps) => {
         {/* Start Button */}
         <button
           onClick={onStart}
-          className="group relative px-10 md:px-12 py-4 md:py-5 bg-gradient-to-r from-green-400 to-emerald-500 text-white font-black text-xl md:text-2xl rounded-full shadow-2xl hover:shadow-green-500/50 transform hover:scale-105 transition-all duration-200 mb-6 md:mb-8"
+          className="group relative px-10 md:px-12 py-4 md:py-5 bg-gradient-to-r from-green-400 to-emerald-500 text-white font-black text-xl md:text-2xl rounded-full shadow-2xl hover:shadow-green-500/50 transform hover:scale-105 transition-all duration-200 mb-4"
         >
           <span className="relative z-10">START GAME</span>
           <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
         </button>
+
+        {/* Install App Button */}
+        {showInstallButton && (
+          <button
+            onClick={handleInstallClick}
+            className="group relative px-10 md:px-12 py-3 md:py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold text-lg md:text-xl rounded-full shadow-2xl hover:shadow-purple-500/50 transform hover:scale-105 transition-all duration-200 mb-6 md:mb-8 animate-pulse"
+          >
+            <span className="relative z-10 flex items-center gap-2">
+              <span>📱</span> INSTALL APP
+            </span>
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          </button>
+        )}
+
+        {!showInstallButton && (
+          <div className="mb-6 md:mb-8"></div>
+        )}
 
         {/* Instructions */}
         <div className="bg-black/30 backdrop-blur-sm px-6 md:px-8 py-5 md:py-6 rounded-2xl border border-white/20 shadow-xl max-w-md w-full mb-6">
